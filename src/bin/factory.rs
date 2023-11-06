@@ -24,15 +24,17 @@ impl Shape for Circle {
 }
 struct ShapeFactory ;
 impl ShapeFactory {
-    fn get_shape(shape_type: &str)->Box<dyn Shape>{
+    fn get_shape(shape_type: &str)->Option<Box<dyn Shape>>{
         if shape_type=="CIRCLE" {
-            Box::new(Circle{})
+            Some(Box::new(Circle{}))
         }else if shape_type=="RECTANGLE" {
-            Box::new(Rectangle{})
+            Some(Box::new(Rectangle{}))
+            
         }else if  shape_type=="SQUARE"{
-            Box::new(Square{})
+            Some(Box::new(Square{}))
+            
         }else {
-            panic!("输入的类型不存在");
+           None
         }
   
     }
@@ -41,10 +43,10 @@ impl ShapeFactory {
 
 fn main() {
 
-    let shape1=ShapeFactory::get_shape("CIRCLE");
+    let shape1=ShapeFactory::get_shape("CIRCLE").unwrap();
     shape1.draw();
-    let shape2=ShapeFactory::get_shape("RECTANGLE");
+    let shape2=ShapeFactory::get_shape("RECTANGLE").unwrap();
     shape2.draw();
-    let shape3=ShapeFactory::get_shape("SQUARE");
+    let shape3=ShapeFactory::get_shape("SQUARE").unwrap();
     shape3.draw();
 }
