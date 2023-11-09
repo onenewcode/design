@@ -1,36 +1,15 @@
-use std::sync::{Arc, Mutex};
- struct Singleton {
-    // 单例数据
-    data: String,
-}
- impl Singleton {
-    // 获取单例实例的方法
-    fn get_instance() -> Arc<Mutex<Singleton>> {
-        // 使用懒加载创建单例实例
-        // 这里使用了 Arc 和 Mutex 来实现线程安全的单例
-        // 只有第一次调用 get_instance 时会创建实例，之后都会返回已创建的实例
-        static mut INSTANCE: Option<Arc<Mutex<Singleton>>> = None;
-         unsafe {
-            INSTANCE.get_or_insert_with(|| {
-                Arc::new(Mutex::new(Singleton {
-                    data: String::from("Singleton instance"),
-                }))
-            }).clone()
-        }
-    }
-}
- fn main() {
-    // 获取单例实例
-    let instance1 = Singleton::get_instance();
-    let instance2 = Singleton::get_instance();
-     // 修改单例数据
-    {
-        let mut instance = instance1.lock().unwrap();
-        instance.data = String::from("Modified singleton instance");
-    }
-     // 输出单例数据
-    {
-        let instance = instance2.lock().unwrap();
-        println!("{}", instance.data);
-    }
+fn main() {
+    let v1 = vec![1, 2, 3];
+
+    let v1_iter = v1.iter();
+
+    let total: i32 = v1_iter.sum();
+
+    assert_eq!(total, 6);
+
+    // v1_iter 是借用了 v1，因此 v1 可以照常使用
+    println!("{:?}",v1);
+
+    // 以下代码会报错，因为 `sum` 拿到了迭代器 `v1_iter` 的所有权
+    // println!("{:?}",v1_iter);
 }
