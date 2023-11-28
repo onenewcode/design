@@ -1,5 +1,5 @@
 // 设置人类实体类
-#[derive(Clone)]
+
 struct Person{
     name:String,
     gender:String,
