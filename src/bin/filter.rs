@@ -90,7 +90,6 @@ fn main() {
     println!("女士");
     print_persons(female.meet_criteria(persons.clone()));
     println!("单身男士");
-    print_persons(single_male.meet_criteria(persons))
-
+    print_persons(single_male.meet_criteria(persons));
 
 }
